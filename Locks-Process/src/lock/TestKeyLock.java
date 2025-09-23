@@ -40,17 +40,40 @@ public class TestKeyLock {
 			System.out.println("Correct key, inserted, turned, so this should unlock");
 		}
 		
-		// TEST unlock() method......
+		// TEST unlock() method
 		
 		// first test, try unlock() before key inserted
+		keyLock = new KeyLock(4);
+		if (keyLock.unlock()) {
+			System.out.println("Unlocked without key, should fail!");
+		} else {
+			System.out.println("Unlock failed without key, correct.");
+		}
 		
 		// second test, try unlock() wrong key inserted
+		keyLock.insertKey(5);
+		if (keyLock.unlock()) {
+			System.out.println("Unlocked with wrong key, should fail!");
+		} else {
+			System.out.println("Unlock failed with wrong key, correct.");
+		}
 		
 		// third test, try unlock() correct key inserted but not turned
+		keyLock = new KeyLock(4);
+		keyLock.insertKey(4);
+		if (keyLock.unlock()) {
+			System.out.println("Unlocked without turning, should fail!");
+		} else {
+			System.out.println("Unlock failed without turning, correct.");
+		}
 		
 		// fourth test, try unlock() correct key inserted and turned
-		
-		
+		keyLock.insertKey(4);
+		keyLock.turn();
+		if (keyLock.unlock()) {
+			System.out.println("Unlocked with correct key and turn, correct!");
+		} else {
+			System.out.println("Unlock failed, should have worked.");
+		}
 	}
-
 }

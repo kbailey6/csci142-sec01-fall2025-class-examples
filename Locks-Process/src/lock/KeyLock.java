@@ -1,30 +1,36 @@
 package lock;
 
 public class KeyLock implements Lock {
-	private int key;
+	private final int key;
 	private boolean isLocked;
 	private boolean isInserted;
+	private boolean isTurned;
 	
 	public KeyLock(int key) {
 		this.key = key;
 		this.isLocked = true;
 		this.isInserted = false;
+		this.isTurned = false;
 	}
 	
 	public boolean insertKey(int key) {
 		if (key != this.key) {
+			this.isInserted = false;
 			return false;
 		}
-		isInserted = true;
+		this.isInserted = true;
 		return true;
 	}
 	
 	public boolean removeKey() {
-		return false;
+		this.isInserted = false;
+		this.isTurned = false;
+		return true;
 	}
 	
 	public boolean turn() {
-		if (isInserted) {
+		if (this.isInserted) {
+			this.isTurned = true;
 			return true;
 		}
 		return false;
@@ -32,20 +38,21 @@ public class KeyLock implements Lock {
 
 	@Override
 	public boolean lock() {
-		// TODO Auto-generated method stub
-		return false;
+		this.isLocked = true;
+		return true;
 	}
 
 	@Override
 	public boolean unlock() {
-		// TODO Auto-generated method stub
+		if (this.isInserted && this.isTurned) {
+			this.isLocked = false;
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean isLocked() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.isLocked;
 	}
-
 }
