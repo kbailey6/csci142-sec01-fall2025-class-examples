@@ -12,7 +12,7 @@ public class KeylessEntryLock extends KeyLock {
 	private boolean isChangedMasterCode;
 	private boolean areAllUserCodesDeleted;
 	private int[] masterCode;
-	private int[][] userCodes;
+	private int[] userCodes;
 	private int[] attempt;
 
 	public KeylessEntryLock(int keyValue) {
